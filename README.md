@@ -1,18 +1,10 @@
-## Getting Started
+Webscraper to collect and display data from Biola's caf website, found [here](https://cafebiola.cafebonappetit.com/cafe/cafe-biola/)
+- Displays meal and meal location
+- Collects information about dietary restrictions 
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Developed to be implemented into [OurCafMealPlannerApp](https://github.com/ellieannar/OurCafMealPlannerApp)
 
-## Folder Structure
 
-The workspace contains two folders by default, where:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+My first webscraper - written in Java
