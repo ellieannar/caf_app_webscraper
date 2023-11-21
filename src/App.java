@@ -10,7 +10,9 @@ import org.jsoup.select.Elements;
 public class App {
     public static void main(String[] args)  {
         final String biolUrl = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/";
-         Map<String, ArrayList<String>> lunchMap = new HashMap<>();
+        Map<String, ArrayList<String>> lunchMap = new HashMap<>();
+        Map<String, ArrayList<String>> dinnerMap = new HashMap<>();
+        Map<String, ArrayList<String>> breakfastMap = new HashMap<>();
 
 
         try {
@@ -25,7 +27,8 @@ public class App {
             //System.out.println(biolaSite.title());
             //System.out.println(biolaSite.select("c-tab__button site-panel__daypart-tab-btn").tagName());
 
-            //the name of each food served - problme: selects everything, including what's just suggested
+            //the name of each food served - problem: selects everything, including what's just suggested
+            /* 
             Elements foodItems = biolaSite.getElementsByClass("h4 site-panel__daypart-item-title");
             for (Element item : foodItems) {
                 //System.out.println(item.text());
@@ -37,6 +40,7 @@ public class App {
                 //System.out.println(item.attributes());
                 
             }
+            */
 
             
             //Lunch tab
@@ -45,18 +49,16 @@ public class App {
 
             for (Element a: lunch.children()) {
                 for (Element b: a.children()) {
-                    String tempLoc = "";
-                    ArrayList<String> myList = new ArrayList<>();
+                    ArrayList<String> tempList = new ArrayList<>();
                     for (Element c: b.children()) {
                         if (c.hasClass("site-panel__daypart-station-title")) {
                             System.out.print(c.text() + ": ");
-                            tempLoc = c.text();
                             lunchMap.put(c.text(), new ArrayList<>());
-                             myList = lunchMap.get(c.text());
+                             tempList = lunchMap.get(c.text());
                         }
                         else if (c.hasClass("site-panel__daypart-item")) {
                             System.out.println(c.text());
-                            myList.add(c.text());
+                            tempList.add(c.text());
                         }
                        
                     }
@@ -65,7 +67,31 @@ public class App {
             }
 
 
-            System.out.println(lunchMap);
+            //breakfast tab
+            Element breakfast = biolaSite.getElementById("tab-content-655c32bececa6");
+            
+
+            for (Element a: breakfast.children()) {
+                for (Element b: a.children()) {
+                    ArrayList<String> tempList = new ArrayList<>();
+                    for (Element c: b.children()) {
+                        if (c.hasClass("site-panel__daypart-station-title")) {
+                            System.out.print(c.text() + ": ");
+                            breakfastMap.put(c.text(), new ArrayList<>());
+                            tempList = breakfastMap.get(c.text());
+                        }
+                        else if (c.hasClass("site-panel__daypart-item")) {
+                            System.out.println(c.text());
+                            tempList.add(c.text());
+                        }
+                       
+                    }
+                    System.out.println("\n\n");
+                }
+            }
+
+
+            System.out.println(breakfastMap);
             
 
            
