@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.concurrent.Flow.Subscriber;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -105,13 +107,50 @@ public class App {
                 }
             }
 
-            System.out.println(dinnerMap);
+            Scanner scanner = new Scanner(System.in);
+            boolean flag = true;
+            while (flag == true) {
+                System.out.print("Which meal do you want information about: ");
+            
+                String input = scanner.nextLine();
+                if (input.equals("breakfast")) {
+                    flag = false;
+                    display(breakfastMap);
+                } else if (input.equals("lunch")) {
+                    flag = false;
+                    display(lunchMap);
+                } else if (input.equals("dinner")) {
+                    flag = false;
+                    display(dinnerMap);
+                } else {
+                    System.out.println("There was an error with your entry. Try using all lowercase letters.");
+                    System.out.println(input);
+                }
+                
+
+            }
             
 
-           
+           scanner.close();
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+
+        
     }
+
+    static void display( Map<String, ArrayList<String>> m) {
+        for (Map.Entry<String, ArrayList<String>> key : m.entrySet()) {
+            ArrayList<String> values = key.getValue();
+            System.out.println(key.getKey() + ":");
+            for (String value : values) {
+                System.out.println("\t" + value);
+            }
+            System.out.println("\n");
+        }
+    }
+
+    
 }
