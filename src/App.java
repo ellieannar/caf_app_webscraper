@@ -44,7 +44,7 @@ public class App {
 
             
             //Lunch tab
-            Element lunch = biolaSite.getElementById("tab-content-655c2b5f49b22");
+            Element lunch = biolaSite.getElementById("tab-content-655c32bed1f6d");
             
 
             for (Element a: lunch.children()) {
@@ -52,17 +52,14 @@ public class App {
                     ArrayList<String> tempList = new ArrayList<>();
                     for (Element c: b.children()) {
                         if (c.hasClass("site-panel__daypart-station-title")) {
-                            System.out.print(c.text() + ": ");
                             lunchMap.put(c.text(), new ArrayList<>());
-                             tempList = lunchMap.get(c.text());
+                            tempList = lunchMap.get(c.text());
                         }
                         else if (c.hasClass("site-panel__daypart-item")) {
-                            System.out.println(c.text());
                             tempList.add(c.text());
                         }
                        
                     }
-                    System.out.println("\n\n");
                 }
             }
 
@@ -76,22 +73,39 @@ public class App {
                     ArrayList<String> tempList = new ArrayList<>();
                     for (Element c: b.children()) {
                         if (c.hasClass("site-panel__daypart-station-title")) {
-                            System.out.print(c.text() + ": ");
                             breakfastMap.put(c.text(), new ArrayList<>());
                             tempList = breakfastMap.get(c.text());
                         }
                         else if (c.hasClass("site-panel__daypart-item")) {
-                            System.out.println(c.text());
                             tempList.add(c.text());
                         }
                        
                     }
-                    System.out.println("\n\n");
                 }
             }
 
 
-            System.out.println(breakfastMap);
+            //dinner tab
+            Element dinner = biolaSite.getElementById("tab-content-655c32bececa6");
+            
+
+            for (Element a: dinner.children()) {
+                for (Element b: a.children()) {
+                    ArrayList<String> tempList = new ArrayList<>();
+                    for (Element c: b.children()) {
+                        if (c.hasClass("site-panel__daypart-station-title")) {
+                            dinnerMap.put(c.text(), new ArrayList<>());
+                            tempList = dinnerMap.get(c.text());
+                        }
+                        else if (c.hasClass("site-panel__daypart-item")) {
+                            tempList.add(c.text());
+                        }
+                       
+                    }
+                }
+            }
+
+            System.out.println(dinnerMap);
             
 
            
