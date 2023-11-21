@@ -1,0 +1,12 @@
+{
+    "java.project.sourcePaths": [
+        "src",
+        "lib"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/Users/ellieannaross/jsoup-master/**/*.jar",
+        "/Users/ellieannaross/Documents/Biola Fall 2023/WebScraper/jsoup-1.16.2.jar"
+    ]
+}
