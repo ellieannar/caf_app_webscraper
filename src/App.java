@@ -2,16 +2,48 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.Flow.Subscriber;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 public class App {
     public static void main(String[] args)  {
-        final String biolUrl = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/";
+
+
+        /*
+
+         On the 27th:
+            - the 27th lunch @ 1:13pm: 
+            - the 28th lunch @ 1:11pm: 656505277da7f
+            - the 29th lunch @ 1:11pm: 6565057634be1
+            - the 30th lunch @ 1:12pm: 6565060853c07
+         
+
+            - the 27th lunch @ 7:51pm: 65655f6d42b6a
+            - the 28th lunch @ 7:53pm: 656563c8c2100
+            - the 29th lunch @ 7:53pm: 656563f70ed79
+            - the 30th lunch @ 7:51pm: 6565641c5d70c
+
+
+        On the 28th:
+            - the 27th lunch @ 10:48am: 6566347fbb9c3
+            - the 28th lunch @ 10:48am: 65663086a5cf2
+            - the 29th lunch @ 10:48am: 6566341266f20
+            - the 30th lunch @ 10:48am: 656635c6b8f6e
+
+            - the 27th lunch @ 3:15pm: 65667431b79b6
+            - the 28th lunch @ 3:15pm: 65667406dcf54
+            - the 29th lunch @ 3:15pm: 656672395e9b5
+            - the 30th lunch @ 3:15pm: 6566740223769
+
+        
+         
+         */
+
+        // for each day???
+        // https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-28/
+        final String biolUrl = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-29/";
         Map<String, ArrayList<String>> lunchMap = new HashMap<>();
         Map<String, ArrayList<String>> dinnerMap = new HashMap<>();
         Map<String, ArrayList<String>> breakfastMap = new HashMap<>();
@@ -46,7 +78,7 @@ public class App {
 
             
             //Lunch tab
-            Element lunch = biolaSite.getElementById("tab-content-655c32bed1f6d");
+            Element lunch = biolaSite.getElementById("tab-content-656505277da7f");
             
 
             for (Element a: lunch.children()) {
@@ -67,7 +99,7 @@ public class App {
 
 
             //breakfast tab
-            Element breakfast = biolaSite.getElementById("tab-content-655c32bececa6");
+            Element breakfast = biolaSite.getElementById("tab-content-6564fd399fbbe");
             
 
             for (Element a: breakfast.children()) {
@@ -88,7 +120,7 @@ public class App {
 
 
             //dinner tab
-            Element dinner = biolaSite.getElementById("tab-content-655c32bececa6");
+            Element dinner = biolaSite.getElementById("tab-content-6564fd39a967b");
             
 
             for (Element a: dinner.children()) {
