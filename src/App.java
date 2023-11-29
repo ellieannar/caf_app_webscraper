@@ -6,12 +6,13 @@ import java.util.Scanner;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class App {
     public static void main(String[] args)  {
 
 
-        /*
+        /* 
 
          On the 27th:
             - the 27th lunch @ 1:13pm: 
@@ -37,13 +38,15 @@ public class App {
             - the 29th lunch @ 3:15pm: 656672395e9b5
             - the 30th lunch @ 3:15pm: 6566740223769
 
-        
+            - the 27th lunch @ 9:35pm: 6566ccf61ddc6
+            - the 28th lunch @ 9:35pm: 6566cd3895c59
+            - the 29th lunch @ 9:35pm: 6566c6e669560
+            - the 30th lunch @ 9:35pm: 6566cd755426b
          
-         */
-
-        // for each day???
+            */
+         
         // https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-28/
-        final String biolUrl = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-29/";
+        final String biolUrl = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-30/";
         Map<String, ArrayList<String>> lunchMap = new HashMap<>();
         Map<String, ArrayList<String>> dinnerMap = new HashMap<>();
         Map<String, ArrayList<String>> breakfastMap = new HashMap<>();
@@ -59,23 +62,33 @@ public class App {
             //System.out.println(biolaSite.select("h2.site-section__title").text());
             //System.out.println(biolaSite.select(".site-panel__daypart-item-title.h4").text()); 
             //System.out.println(biolaSite.title());
-            //System.out.println(biolaSite.select("c-tab__button site-panel__daypart-tab-btn").tagName());
+            //System.out.println(biolaSite.select("c-tab__button site-panel__daypart-tab-btn").children());
 
             //the name of each food served - problem: selects everything, including what's just suggested
-            /* 
+
+            //this is the tab: System.out.println((item.parent().parent().parent().parent().parent().parent()));
+             
             Elements foodItems = biolaSite.getElementsByClass("h4 site-panel__daypart-item-title");
+            //print JUST the elements that are served today
             for (Element item : foodItems) {
-                //System.out.println(item.text());
+                Element tab = item.parent().parent().parent().parent().parent().parent();
+                if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1")) {
+                    //System.out.println("\t" + (item.parent().parent().parent().parent().parent().parent()).attributes());
+                    System.out.println(item.text());
+                    //System.out.println(tab.attr("data-loop-index").equals("1"));
+                }
+    
             }
 
             
-            Elements locations = biolaSite.getElementsByClass("c-tab__content site-panel__daypart-tab-content tab-content- c-tab__content--active");
-            for (Element item : locations) {
+            //Elements locations = biolaSite.getElementsByClass("c-tab__content site-panel__daypart-tab-content tab-content- c-tab__content--active");
+            //for (Element item : locations) {
                 //System.out.println(item.attributes());
                 
-            }
-            */
-
+           // }
+            
+            /* 
+        
             
             //Lunch tab
             Element lunch = biolaSite.getElementById("tab-content-656505277da7f");
@@ -164,6 +177,7 @@ public class App {
             
 
            scanner.close();
+           */
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -186,3 +200,37 @@ public class App {
 
     
 }
+
+/* 
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import java.io.IOException;
+
+public class App {
+
+    public static void main(String[] args) {
+        String url = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-30/";
+
+        try {
+            // Connect to the website and get the HTML document
+            Document document = Jsoup.connect(url).get();
+
+            // Extract meal information
+            Elements mealElements = document.select(".c-daily-menu__item");
+            
+            System.out.println("Meals being served on 2023-11-30:");
+            for (Element mealElement : mealElements) {
+                String mealName = mealElement.select(".c-daily-menu__item-title").text();
+                System.out.println("- " + mealName);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+*/
