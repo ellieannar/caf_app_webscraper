@@ -66,7 +66,7 @@ public class App {
                         if (!item.children().isEmpty()) {
                             Elements dietary = item.child(0).children();
                             for (Element restriction: dietary) {
-                                food.restrictions.add(restriction.attr("title"));
+                                food.addRestriction(restriction.attr("title"));
                             }
                         }
 
@@ -88,7 +88,7 @@ public class App {
                             Elements dietary = item.child(0).children();
                         
                             for (Element restriction: dietary) {
-                                food.restrictions.add(restriction.attr("title"));
+                                food.addRestriction(restriction.attr("title"));
                             }
                         }
                         
@@ -110,7 +110,7 @@ public class App {
                         if (!item.children().isEmpty()) {
                             Elements dietary = item.child(0).children();
                             for (Element restriction: dietary) {
-                                food.restrictions.add(restriction.attr("title"));
+                                food.addRestriction(restriction.attr("title"));
                             }
                         }
 
