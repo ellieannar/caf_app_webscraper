@@ -12,13 +12,23 @@ public class App {
 
     public static void main(String[] args)  {
 
+            Scanner scanner = new Scanner(System.in);
+            boolean flag = true;
+            String dateString = "";
+            
+            System.out.print("Enter the date in the following format yyyy-mm-dd: ");
+        
+            dateString = scanner.nextLine();
+            dateString.concat("/");
+                
 
+        
        
-         String dateString = "2023-11-29/";
+         
         // https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-28/
         final String biolaUrl = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/".concat(dateString);
 
-
+        Day today = new Day();
         try {
             final Document biolaSite = Jsoup.connect(biolaUrl).get();
 
@@ -31,13 +41,10 @@ public class App {
             Elements foodItems = biolaSite.getElementsByClass("h4 site-panel__daypart-item-title");
             //print JUST the elements that are served today
 
-            Day today = new Day();
-            //today.breakfast.mealElements.add(null);
-            //System.out.println("BREAKFASTS");
+            
             for (Element item : foodItems) {
                 Element tab = item.parent().parent().parent().parent().parent().parent();
                 Element meal = tab.parent().parent().parent().parent();
-                //String location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
 
                 //Breakfasts
                 if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("1")) {
@@ -49,13 +56,10 @@ public class App {
                     
                         for (Element restriction: dietary) {
                             food.restrictions.add(restriction.attr("title"));
-                            //System.out.println(restriction.attr("title"));
                         }
                     }
                     food.description = item.parent().parent().child(1).text();
                     food.location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
-                    //System.out.println("\t" + item.parent().parent().child(1).text());
-                    //System.out.println("\t" + location + ": " + item.text());
                     today.breakfast.mealElements.add(food);
                 }
                  
@@ -63,21 +67,17 @@ public class App {
                 else if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("3")) {
                     FoodItem food = new FoodItem();
                     food.title = item.text();
-                    // Dietary restrictions associated with food item
                     if (!item.children().isEmpty()) {
                         Elements dietary = item.child(0).children();
                     
                         for (Element restriction: dietary) {
                             food.restrictions.add(restriction.attr("title"));
-                            //System.out.println(restriction.attr("title"));
                         }
                     }
                     
 
                     food.description = item.parent().parent().child(1).text();
                     food.location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
-                    //System.out.println("\t" + item.parent().parent().child(1).text());
-                    //System.out.println("\t" + location + ": " + item.text());
                     today.lunch.mealElements.add(food);
                 }
                 
@@ -97,8 +97,6 @@ public class App {
                     }
                     food.description = item.parent().parent().child(1).text();
                     food.location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
-                    //System.out.println("\t" + item.parent().parent().child(1).text());
-                    //System.out.println("\t" + location + ": " + item.text());
                     today.dinner.mealElements.add(food);
                 }
                 
@@ -107,26 +105,8 @@ public class App {
     
             }
 
-            Scanner scanner = new Scanner(System.in);
-            boolean flag = true;
-            while (flag == true) {
-                System.out.print("Which meal do you want information about: ");
             
-                String input = scanner.nextLine();
-                if (input.equals("breakfast")) {
-                    flag = false;
-                } else if (input.equals("lunch")) {
-                    flag = false;
-                } else if (input.equals("dinner")) {
-                    flag = false;
-                } else {
-                    System.out.println("There was an error with your entry. Try using all lowercase letters.");
-                    System.out.println(input);
-                }
-                
-
-            }
-            
+            today.print();
 
            scanner.close();
            
