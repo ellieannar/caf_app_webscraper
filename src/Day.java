@@ -9,12 +9,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class Day {
-    Meal breakfast;
-    Meal lunch;
-    Meal dinner;
+    Meal breakfast = new Meal();
+    Meal lunch = new Meal();
+    Meal dinner = new Meal();
     Day() {
         super();
-        System.out.println("Constructor called");
+    }
+
+    public void print(Day d) {
+        System.out.println("Printing day");
     }
     
 }

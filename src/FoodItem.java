@@ -14,4 +14,8 @@ public class FoodItem {
     ArrayList<String> restrictions = new ArrayList<String>(); 
     String title;
     String description;
+
+    FoodItem () {
+        super();
+    }
 }

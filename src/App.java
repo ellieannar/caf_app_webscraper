@@ -33,121 +33,78 @@ public class App {
 
             Day today = new Day();
             //today.breakfast.mealElements.add(null);
-            System.out.println("BREAKFASTS");
+            //System.out.println("BREAKFASTS");
             for (Element item : foodItems) {
                 Element tab = item.parent().parent().parent().parent().parent().parent();
                 Element meal = tab.parent().parent().parent().parent();
-                String location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
+                //String location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
 
                 //Breakfasts
                 if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("1")) {
-                    
+                    FoodItem food = new FoodItem();
+                    food.title = item.text();
                     // Dietary restrictions associated with food item
-                    Elements dietary = item.child(0).children();
-                    for (Element restriction: dietary) {
-                        System.out.println(restriction.attr("title"));
+                    if (!item.children().isEmpty()) {
+                        Elements dietary = item.child(0).children();
+                    
+                        for (Element restriction: dietary) {
+                            food.restrictions.add(restriction.attr("title"));
+                            //System.out.println(restriction.attr("title"));
+                        }
+                    }
+                    food.description = item.parent().parent().child(1).text();
+                    food.location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
+                    //System.out.println("\t" + item.parent().parent().child(1).text());
+                    //System.out.println("\t" + location + ": " + item.text());
+                    today.breakfast.mealElements.add(food);
+                }
+                 
+                //Lunches
+                else if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("3")) {
+                    FoodItem food = new FoodItem();
+                    food.title = item.text();
+                    // Dietary restrictions associated with food item
+                    if (!item.children().isEmpty()) {
+                        Elements dietary = item.child(0).children();
+                    
+                        for (Element restriction: dietary) {
+                            food.restrictions.add(restriction.attr("title"));
+                            //System.out.println(restriction.attr("title"));
+                        }
                     }
                     
-                    System.out.println("\t" + item.parent().parent().child(1).text());
-                    System.out.println("\t" + location + ": " + item.text());
-                }
-    
-            }
-/* 
-            System.out.println("LUNCHES");
-            for (Element item : foodItems) {
-                Element tab = item.parent().parent().parent().parent().parent().parent();
-                Element meal = tab.parent().parent().parent().parent();
-                if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("3")) {
-                    //System.out.println("\t" + meal.attributes());
-                    System.out.println("\t" + item.text());
-                    //System.out.println(tab.attr("data-loop-index").equals("1"));
-                }
-    
-            }
 
-            System.out.println("DINNERS");
-            for (Element item : foodItems) {
-                Element tab = item.parent().parent().parent().parent().parent().parent();
-                Element meal = tab.parent().parent().parent().parent();
-                if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("4")) {
-                    //System.out.println("\t" + meal.attributes());
-                    System.out.println("\t" + item.text());
-                    //System.out.println(tab.attr("data-loop-index").equals("1"));
+                    food.description = item.parent().parent().child(1).text();
+                    food.location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
+                    //System.out.println("\t" + item.parent().parent().child(1).text());
+                    //System.out.println("\t" + location + ": " + item.text());
+                    today.lunch.mealElements.add(food);
                 }
-    
-            }
-*/
-            
-            //Elements locations = biolaSite.getElementsByClass("c-tab__content site-panel__daypart-tab-content tab-content- c-tab__content--active");
-            //for (Element item : locations) {
-                //System.out.println(item.attributes());
                 
-           // }
-            
-            /* 
-        
-            
-            //Lunch tab
-            Element lunch = biolaSite.getElementById("tab-content-656505277da7f");
-            
 
-            for (Element a: lunch.children()) {
-                for (Element b: a.children()) {
-                    ArrayList<String> tempList = new ArrayList<>();
-                    for (Element c: b.children()) {
-                        if (c.hasClass("site-panel__daypart-station-title")) {
-                            lunchMap.put(c.text(), new ArrayList<>());
-                            tempList = lunchMap.get(c.text());
+                //Dinners
+                if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("4")) {
+                    FoodItem food = new FoodItem();
+                    food.title = item.text();
+                    // Dietary restrictions associated with food item
+                    if (!item.children().isEmpty()) {
+                        Elements dietary = item.child(0).children();
+                    
+                        for (Element restriction: dietary) {
+                            food.restrictions.add(restriction.attr("title"));
+                            //System.out.println(restriction.attr("title"));
                         }
-                        else if (c.hasClass("site-panel__daypart-item")) {
-                            tempList.add(c.text());
-                        }
-                       
                     }
+                    food.description = item.parent().parent().child(1).text();
+                    food.location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
+                    //System.out.println("\t" + item.parent().parent().child(1).text());
+                    //System.out.println("\t" + location + ": " + item.text());
+                    today.dinner.mealElements.add(food);
                 }
-            }
+                
 
 
-            //breakfast tab
-            Element breakfast = biolaSite.getElementById("tab-content-6564fd399fbbe");
-            
-
-            for (Element a: breakfast.children()) {
-                for (Element b: a.children()) {
-                    ArrayList<String> tempList = new ArrayList<>();
-                    for (Element c: b.children()) {
-                        if (c.hasClass("site-panel__daypart-station-title")) {
-                            breakfastMap.put(c.text(), new ArrayList<>());
-                            tempList = breakfastMap.get(c.text());
-                        }
-                        else if (c.hasClass("site-panel__daypart-item")) {
-                            tempList.add(c.text());
-                        }
-                       
-                    }
-                }
-            }
-
-
-            //dinner tab
-            Element dinner = biolaSite.getElementById("tab-content-6564fd39a967b");
-            
-
-            for (Element a: dinner.children()) {
-                for (Element b: a.children()) {
-                    ArrayList<String> tempList = new ArrayList<>();
-                    for (Element c: b.children()) {
-                        if (c.hasClass("site-panel__daypart-station-title")) {
-                            dinnerMap.put(c.text(), new ArrayList<>());
-                            tempList = dinnerMap.get(c.text());
-                        }
-                        else if (c.hasClass("site-panel__daypart-item")) {
-                            tempList.add(c.text());
-                        }
-                       
-                    }
-                }
+    
             }
 
             Scanner scanner = new Scanner(System.in);
@@ -158,13 +115,10 @@ public class App {
                 String input = scanner.nextLine();
                 if (input.equals("breakfast")) {
                     flag = false;
-                    display(breakfastMap);
                 } else if (input.equals("lunch")) {
                     flag = false;
-                    display(lunchMap);
                 } else if (input.equals("dinner")) {
                     flag = false;
-                    display(dinnerMap);
                 } else {
                     System.out.println("There was an error with your entry. Try using all lowercase letters.");
                     System.out.println(input);
@@ -175,7 +129,7 @@ public class App {
             
 
            scanner.close();
-           */
+           
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -185,50 +139,7 @@ public class App {
         
     }
 
-    static void display( Map<String, ArrayList<String>> m) {
-        for (Map.Entry<String, ArrayList<String>> key : m.entrySet()) {
-            ArrayList<String> values = key.getValue();
-            System.out.println(key.getKey() + ":");
-            for (String value : values) {
-                System.out.println("\t" + value);
-            }
-            System.out.println("\n");
-        }
-    }
+    
 
     
 }
-
-/* 
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import java.io.IOException;
-
-public class App {
-
-    public static void main(String[] args) {
-        String url = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-30/";
-
-        try {
-            // Connect to the website and get the HTML document
-            Document document = Jsoup.connect(url).get();
-
-            // Extract meal information
-            Elements mealElements = document.select(".c-daily-menu__item");
-            
-            System.out.println("Meals being served on 2023-11-30:");
-            for (Element mealElement : mealElements) {
-                String mealName = mealElement.select(".c-daily-menu__item-title").text();
-                System.out.println("- " + mealName);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-}
-
-*/
