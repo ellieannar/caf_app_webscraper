@@ -9,47 +9,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class App {
+
     public static void main(String[] args)  {
 
 
-        /* 
-
-         On the 27th:
-            - the 27th lunch @ 1:13pm: 
-            - the 28th lunch @ 1:11pm: 656505277da7f
-            - the 29th lunch @ 1:11pm: 6565057634be1
-            - the 30th lunch @ 1:12pm: 6565060853c07
-         
-
-            - the 27th lunch @ 7:51pm: 65655f6d42b6a
-            - the 28th lunch @ 7:53pm: 656563c8c2100
-            - the 29th lunch @ 7:53pm: 656563f70ed79
-            - the 30th lunch @ 7:51pm: 6565641c5d70c
-
-
-        On the 28th:
-            - the 27th lunch @ 10:48am: 6566347fbb9c3
-            - the 28th lunch @ 10:48am: 65663086a5cf2
-            - the 29th lunch @ 10:48am: 6566341266f20
-            - the 30th lunch @ 10:48am: 656635c6b8f6e
-
-            - the 27th lunch @ 3:15pm: 65667431b79b6
-            - the 28th lunch @ 3:15pm: 65667406dcf54
-            - the 29th lunch @ 3:15pm: 656672395e9b5
-            - the 30th lunch @ 3:15pm: 6566740223769
-
-            - the 27th lunch @ 9:35pm: 6566ccf61ddc6
-            - the 28th lunch @ 9:35pm: 6566cd3895c59
-            - the 29th lunch @ 9:35pm: 6566c6e669560
-            - the 30th lunch @ 9:35pm: 6566cd755426b
-         
-            */
-         
+       
+         String dateString = "2023-11-29/";
         // https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-28/
-        final String biolaUrl = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-29/";
-        Map<String, ArrayList<String>> lunchMap = new HashMap<>();
-        Map<String, ArrayList<String>> dinnerMap = new HashMap<>();
-        Map<String, ArrayList<String>> breakfastMap = new HashMap<>();
+        final String biolaUrl = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/".concat(dateString);
 
 
         try {
@@ -63,12 +30,19 @@ public class App {
              
             Elements foodItems = biolaSite.getElementsByClass("h4 site-panel__daypart-item-title");
             //print JUST the elements that are served today
+
+            Day today = new Day();
+            //today.breakfast.mealElements.add(null);
             System.out.println("BREAKFASTS");
             for (Element item : foodItems) {
                 Element tab = item.parent().parent().parent().parent().parent().parent();
                 Element meal = tab.parent().parent().parent().parent();
                 String location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
+
+                //Breakfasts
                 if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("1")) {
+                    
+                    // Dietary restrictions associated with food item
                     Elements dietary = item.child(0).children();
                     for (Element restriction: dietary) {
                         System.out.println(restriction.attr("title"));
