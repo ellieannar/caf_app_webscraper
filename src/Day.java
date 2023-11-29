@@ -1,21 +1,16 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 public class Day {
+
+    //Meals to keep track of breakfast, lunch, and dinner
     Meal breakfast = new Meal();
     Meal lunch = new Meal();
     Meal dinner = new Meal();
+
+    //Constructor
     Day() {
         super();
     }
 
+    //Print function to display in log what's in the Meals 
     public void print() {
         System.out.println("Breakfast: ");
         for (int i = 0; i < breakfast.mealElements.size(); i++) {
