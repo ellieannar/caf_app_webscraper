@@ -46,40 +46,64 @@ public class App {
             */
          
         // https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-28/
-        final String biolUrl = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-30/";
+        final String biolaUrl = "https://cafebiola.cafebonappetit.com/cafe/cafe-biola/2023-11-29/";
         Map<String, ArrayList<String>> lunchMap = new HashMap<>();
         Map<String, ArrayList<String>> dinnerMap = new HashMap<>();
         Map<String, ArrayList<String>> breakfastMap = new HashMap<>();
 
 
         try {
-            final Document biolaSite = Jsoup.connect(biolUrl).get();
-
-            //issue: this prints too much stuff
-            //System.out.println(biolaSite.outerHtml());
-            
-
-            //System.out.println(biolaSite.select("h2.site-section__title").text());
-            //System.out.println(biolaSite.select(".site-panel__daypart-item-title.h4").text()); 
-            //System.out.println(biolaSite.title());
-            //System.out.println(biolaSite.select("c-tab__button site-panel__daypart-tab-btn").children());
-
-            //the name of each food served - problem: selects everything, including what's just suggested
+            final Document biolaSite = Jsoup.connect(biolaUrl).get();
 
             //this is the tab: System.out.println((item.parent().parent().parent().parent().parent().parent()));
+            // this is the meal: System.out.println("\t" + item.parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().attributes());
+            // this is the location: item.parent().parent().parent().parent().getElementsByTag("h3").text()
+            // these are the dietary restrictions: Elements dietary = item.child(0).children();
+            // this is the info about the item: System.out.println("\t" + item.parent().parent().child(1).text());
              
             Elements foodItems = biolaSite.getElementsByClass("h4 site-panel__daypart-item-title");
             //print JUST the elements that are served today
+            System.out.println("BREAKFASTS");
             for (Element item : foodItems) {
                 Element tab = item.parent().parent().parent().parent().parent().parent();
-                if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1")) {
-                    //System.out.println("\t" + (item.parent().parent().parent().parent().parent().parent()).attributes());
-                    System.out.println(item.text());
+                Element meal = tab.parent().parent().parent().parent();
+                String location = item.parent().parent().parent().parent().getElementsByTag("h3").text();
+                if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("1")) {
+                    Elements dietary = item.child(0).children();
+                    for (Element restriction: dietary) {
+                        System.out.println(restriction.attr("title"));
+                    }
+                    
+                    System.out.println("\t" + item.parent().parent().child(1).text());
+                    System.out.println("\t" + location + ": " + item.text());
+                }
+    
+            }
+/* 
+            System.out.println("LUNCHES");
+            for (Element item : foodItems) {
+                Element tab = item.parent().parent().parent().parent().parent().parent();
+                Element meal = tab.parent().parent().parent().parent();
+                if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("3")) {
+                    //System.out.println("\t" + meal.attributes());
+                    System.out.println("\t" + item.text());
                     //System.out.println(tab.attr("data-loop-index").equals("1"));
                 }
     
             }
 
+            System.out.println("DINNERS");
+            for (Element item : foodItems) {
+                Element tab = item.parent().parent().parent().parent().parent().parent();
+                Element meal = tab.parent().parent().parent().parent();
+                if (tab.hasAttr("data-loop-index") && tab.attr("data-loop-index").equals("1") && meal.attr("data-daypart-id").equals("4")) {
+                    //System.out.println("\t" + meal.attributes());
+                    System.out.println("\t" + item.text());
+                    //System.out.println(tab.attr("data-loop-index").equals("1"));
+                }
+    
+            }
+*/
             
             //Elements locations = biolaSite.getElementsByClass("c-tab__content site-panel__daypart-tab-content tab-content- c-tab__content--active");
             //for (Element item : locations) {
